@@ -1,0 +1,49 @@
+---
+import WaitlistForm from '@/components/WaitlistForm.tsx';
+
+const communityImage = 'https://images.pexels.com/photos/13873170/pexels-photo-13873170.jpeg?auto=compress&w=900';
+
+const values = [
+  {
+    title: 'Comunidad',
+    body: 'No buscamos clientes, buscamos gente. Un ambiente donde pertenecer antes de tener la prenda.',
+  },
+  {
+    title: 'Creatividad',
+    body: 'El cambio es nuestra esencia. Cada drop es una excusa para crear algo nuevo, juntos.',
+  },
+];
+---
+
+<section class="section">
+  <div class="container-blazek flex flex-col gap-12">
+    <div class="flex flex-col gap-4">
+      <span class="text-eyebrow">Por qué pertenecer</span>
+      <h2 class="text-section-title max-w-2xl">Más que una marca, un lugar</h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {values.map((value) => (
+        <article class="flex flex-col gap-3 rounded-lg border-2 border-border bg-card p-8">
+          <h3 class="font-display text-2xl uppercase">{value.title}</h3>
+          <p class="text-muted-foreground">{value.body}</p>
+        </article>
+      ))}
+    </div>
+
+    <div id="waitlist" class="grid items-center gap-10 rounded-lg bg-secondary p-8 text-secondary-foreground md:grid-cols-2 md:p-12">
+      <div class="flex flex-col gap-4">
+        <h3 class="text-section-title">Sé de los primeros</h3>
+        <p class="max-w-md text-secondary-foreground/85">
+          Dejanos tu mail y enterate antes que nadie cuando lancemos. Sin spam, solo el aviso
+          que importa.
+        </p>
+        <div class="flex gap-4 pt-2">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="bzk-stamp border-secondary-foreground/40 text-secondary-foreground">Instagram</a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="bzk-stamp border-secondary-foreground/40 text-secondary-foreground">TikTok</a>
+        </div>
+      </div>
+      <WaitlistForm variant="general" client:visible />
+    </div>
+  </div>
+</section>

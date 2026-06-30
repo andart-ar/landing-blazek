@@ -1,0 +1,293 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --font-display:
+        "Podium Soft Variable", "Clash Display", "Archivo Black",
+        "Hanken Grotesk", sans-serif;
+    --font-body:
+        "Hanken Grotesk", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+    :root {
+        --background: 42 60% 96%;
+        --foreground: 218 47% 13%;
+
+        --card: 0 0% 100%;
+        --card-foreground: var(--foreground);
+
+        --popover: 0 0% 100%;
+        --popover-foreground: var(--foreground);
+
+        --primary: 15 100% 55%;
+        --primary-foreground: 0 0% 100%;
+
+        --secondary: 218 59% 25%;
+        --secondary-foreground: 0 0% 100%;
+
+        --accent: 44 94% 56%;
+        --accent-foreground: 218 59% 14%;
+
+        --muted: 33 35% 92%;
+        --muted-foreground: 218 18% 38%;
+
+        --destructive: 0 79% 41%;
+        --destructive-foreground: 0 0% 100%;
+
+        --border: 33 25% 85%;
+        --input: 33 25% 88%;
+        --ring: 15 100% 55%;
+
+        --chart-1: 15 100% 55%;
+        --chart-2: 218 59% 25%;
+        --chart-3: 44 94% 56%;
+        --chart-4: 212 63% 42%;
+        --chart-5: 0 79% 41%;
+
+        --radius: 1rem;
+    }
+
+    .dark {
+        --background: 222 47% 9%;
+        --foreground: 42 55% 95%;
+
+        --card: 222 40% 13%;
+        --card-foreground: var(--foreground);
+
+        --popover: 222 40% 13%;
+        --popover-foreground: var(--foreground);
+
+        --primary: 15 100% 58%;
+        --primary-foreground: 222 47% 9%;
+
+        --secondary: 44 94% 56%;
+        --secondary-foreground: 222 47% 9%;
+
+        --accent: 212 63% 50%;
+        --accent-foreground: 0 0% 100%;
+
+        --muted: 222 30% 18%;
+        --muted-foreground: 33 20% 68%;
+
+        --destructive: 0 70% 50%;
+        --destructive-foreground: 0 0% 100%;
+
+        --border: 222 30% 20%;
+        --input: 222 30% 22%;
+        --ring: 15 100% 58%;
+
+        --chart-1: 15 100% 58%;
+        --chart-2: 44 94% 56%;
+        --chart-3: 212 63% 50%;
+        --chart-4: 27 97% 65%;
+        --chart-5: 0 70% 50%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-family: var(--font-body);
+        font-feature-settings:
+            "ss01" on,
+            "ss02" on;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-display);
+        letter-spacing: -0.01em;
+        line-height: 0.95;
+        text-transform: uppercase;
+    }
+
+    :focus-visible {
+        outline: 2px solid hsl(var(--ring));
+        outline-offset: 2px;
+        border-radius: calc(var(--radius) - 4px);
+    }
+}
+
+@layer components {
+    .text-hero {
+        font-family: var(--font-display);
+        font-size: clamp(2.75rem, 9vw, 6.5rem);
+        line-height: 0.92;
+        text-transform: uppercase;
+        letter-spacing: -0.015em;
+    }
+
+    .text-section-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.75rem, 4vw, 3rem);
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .text-eyebrow {
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: hsl(var(--muted-foreground));
+    }
+
+    .text-body-alt {
+        font-family: var(--font-body);
+        font-style: italic;
+        font-weight: 500;
+    }
+}
+
+@layer components {
+    .container-blazek {
+        width: 100%;
+        max-width: 80rem;
+        margin-inline: auto;
+        padding-inline: 1.25rem;
+    }
+
+    @media (min-width: 768px) {
+        .container-blazek {
+            padding-inline: 2.5rem;
+        }
+    }
+
+    .section {
+        padding-block: clamp(3.5rem, 8vw, 7rem);
+    }
+}
+
+@layer components {
+    .bzk-stamp {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 1rem;
+        border: 2px solid currentColor;
+        border-radius: 999px;
+        font-family: var(--font-display);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        transform: rotate(-3deg);
+        transition: transform 0.2s ease;
+    }
+
+    .bzk-stamp:hover {
+        transform: rotate(0deg);
+    }
+
+    .bzk-oval-frame {
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        aspect-ratio: 1 / 0.72;
+        border: 3px solid hsl(var(--secondary));
+    }
+
+    .bzk-oval-frame img,
+    .bzk-oval-frame video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .bzk-halftone {
+        background-image: radial-gradient(currentColor 1px, transparent 1.5px);
+        background-size: 10px 10px;
+        color: hsl(var(--foreground) / 0.12);
+    }
+
+    .bzk-gradient-text {
+        background-image: linear-gradient(
+            90deg,
+            hsl(var(--accent)),
+            hsl(var(--primary))
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    .bzk-divider {
+        border-top: 1px solid hsl(var(--border));
+    }
+
+    .bzk-divider--dashed {
+        border-top: 2px dashed hsl(var(--border));
+    }
+}
+
+@layer utilities {
+    .animate-rise-in {
+        animation: bzk-rise-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes bzk-rise-in {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .animate-rise-in {
+            animation: none;
+        }
+        html {
+            scroll-behavior: auto;
+        }
+    }
+}
+
+::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--secondary));
+    border-radius: 999px;
+}
+
+@media (max-width: 480px) {
+    h1,
+    h2,
+    h3,
+    h4 {
+        line-height: 1;
+    }
+
+    .bzk-oval-frame {
+        aspect-ratio: 1 / 0.9;
+    }
+}
