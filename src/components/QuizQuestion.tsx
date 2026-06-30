@@ -21,7 +21,7 @@ export default function QuizQuestion({ question, selectedIndex, onSelect }: Quiz
               onClick={() => onSelect(index)}
               aria-pressed={isSelected}
               className={cn(
-                'rounded-lg border-2 px-5 py-4 text-left text-lg transition-colors',
+                'min-h-[3rem] rounded-lg border-2 px-5 py-4 text-left text-base transition-colors md:text-lg',
                 isSelected
                   ? 'border-primary bg-primary/10 text-foreground'
                   : 'border-border bg-card text-foreground hover:border-foreground',

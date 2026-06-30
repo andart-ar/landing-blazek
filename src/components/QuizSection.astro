@@ -3,7 +3,7 @@ import Quiz from '@/components/Quiz.tsx';
 ---
 
 <section id="quiz" class="section bg-muted">
-  <div class="container-blazek flex flex-col gap-10">
+  <div class="container-blazek flex flex-col gap-[var(--space-stack)]">
     <div class="flex max-w-2xl flex-col gap-4">
       <span class="text-eyebrow">El test</span>
       <h2 class="text-section-title">Encontrá tu prenda</h2>
@@ -12,7 +12,7 @@ import Quiz from '@/components/Quiz.tsx';
       </p>
     </div>
 
-    <div class="rounded-lg border-2 border-border bg-background p-6 md:p-10">
+    <div class="card-blazek bg-background">
       <Quiz client:visible />
     </div>
   </div>

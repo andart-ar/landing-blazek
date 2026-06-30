@@ -9,7 +9,7 @@ interface ResultTeaserProps {
 
 export default function ResultTeaser({ garment, onRestart }: ResultTeaserProps) {
   return (
-    <div className="animate-rise-in grid gap-10 md:grid-cols-2 md:items-center">
+    <div className="animate-rise-in grid gap-[var(--space-stack)] md:grid-cols-2 md:items-center">
       <div className="bzk-oval-frame">
         <img
           src={garment.image}
@@ -26,7 +26,7 @@ export default function ResultTeaser({ garment, onRestart }: ResultTeaserProps) 
         <h3 className="text-section-title bzk-gradient-text">{garment.name}</h3>
         <p className="text-lg text-muted-foreground">{garment.teaserCopy}</p>
 
-        <div className="flex flex-col gap-3 rounded-lg border-2 border-border bg-card p-6">
+        <div className="card-blazek flex flex-col gap-3">
           <span className="font-display text-xl uppercase">Sé de los primeros en tenerla</span>
           <WaitlistForm variant="result" garmentId={garment.id} />
         </div>

@@ -10,6 +10,11 @@
         "Hanken Grotesk", sans-serif;
     --font-body:
         "Hanken Grotesk", "Inter", system-ui, -apple-system, sans-serif;
+
+    --space-section: clamp(3.5rem, 8vw, 7rem);
+    --space-stack: clamp(1.5rem, 4vw, 3rem);
+    --space-gap: clamp(1rem, 2.5vw, 1.5rem);
+    --space-card: clamp(1.5rem, 4vw, 3rem);
 }
 
 @layer base {
@@ -160,7 +165,7 @@
         width: 100%;
         max-width: 80rem;
         margin-inline: auto;
-        padding-inline: 1.25rem;
+        padding-inline: clamp(1rem, 4vw, 1.25rem);
     }
 
     @media (min-width: 768px) {
@@ -170,7 +175,57 @@
     }
 
     .section {
-        padding-block: clamp(3.5rem, 8vw, 7rem);
+        padding-block: var(--space-section);
+    }
+
+    .card-blazek {
+        border: 2px solid hsl(var(--border));
+        border-radius: var(--radius);
+        background: hsl(var(--card));
+        padding: var(--space-card);
+    }
+
+    .btn {
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        min-height: 3.5rem;
+        padding-inline: clamp(1.5rem, 4vw, 2rem);
+        border-radius: var(--radius);
+        font-family: var(--font-display);
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        transition:
+            transform 0.2s ease,
+            background-color 0.2s ease,
+            color 0.2s ease;
+    }
+
+    @media (min-width: 480px) {
+        .btn {
+            width: auto;
+        }
+    }
+
+    .btn--primary {
+        background: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+    }
+
+    .btn--primary:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn--outline {
+        border: 2px solid hsl(var(--foreground));
+        color: hsl(var(--foreground));
+    }
+
+    .btn--outline:hover {
+        background: hsl(var(--foreground));
+        color: hsl(var(--background));
     }
 }
 
@@ -186,12 +241,6 @@
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        transform: rotate(-3deg);
-        transition: transform 0.2s ease;
-    }
-
-    .bzk-stamp:hover {
-        transform: rotate(0deg);
     }
 
     .bzk-oval-frame {
