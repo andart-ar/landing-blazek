@@ -2,18 +2,15 @@
 import Quiz from '@/components/Quiz.tsx';
 ---
 
-<section id="quiz" class="section bg-muted">
+<section id="quiz" class="section bg-secondary text-secondary-foreground">
   <div class="container-blazek flex flex-col gap-[var(--space-stack)]">
-    <div class="flex max-w-2xl flex-col gap-4">
-      <span class="text-eyebrow">El test</span>
+    <div class="flex max-w-2xl flex-col gap-3">
       <h2 class="text-section-title">Encontrá tu prenda</h2>
-      <p class="text-lg text-muted-foreground">
-        Seis preguntas rápidas. Al final, la prenda que más se parece a vos.
+      <p class="text-lg text-secondary-foreground/85">
+        Elegí lo que va con vos y descubrí la prenda que más se parece.
       </p>
     </div>
 
-    <div class="card-blazek bg-background">
-      <Quiz client:visible />
-    </div>
+    <Quiz client:visible />
   </div>
 </section>

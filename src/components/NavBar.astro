@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/logos/blackLogo.png';
+
+const links = [
+  { label: 'Inicio', href: '#inicio' },
+  { label: 'Quiz', href: '#quiz' },
+  { label: 'Comunidad', href: '#comunidad' },
+];
+---
+
+<header class="bzk-navbar">
+  <nav class="container-blazek bzk-navbar__inner" aria-label="Navegación principal">
+    <a href="#inicio" class="bzk-navbar__brand" aria-label="BLAZEK — Inicio">
+      <Image src={logo} alt="BLAZEK" width={72} height={48} class="bzk-navbar__logo" />
+    </a>
+
+    <ul class="bzk-navbar__links">
+      {links.map((link) => (
+        <li>
+          <a href={link.href} class="bzk-navbar__link">{link.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <a href="#waitlist" class="bzk-navbar__cta">Waitlist</a>
+  </nav>
+</header>

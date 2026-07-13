@@ -6,8 +6,8 @@
 
 :root {
     --font-display:
-        "Podium Soft Variable", "Clash Display", "Archivo Black",
-        "Hanken Grotesk", sans-serif;
+        "Podium Soft Variable", "Podium Soft", "Clash Display",
+        "Archivo Black", "Hanken Grotesk", sans-serif;
     --font-body:
         "Hanken Grotesk", "Inter", system-ui, -apple-system, sans-serif;
 
@@ -100,6 +100,7 @@
 
     html {
         scroll-behavior: smooth;
+        scroll-padding-top: 4rem;
     }
 
     body {
@@ -230,6 +231,108 @@
 }
 
 @layer components {
+    .bzk-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: hsl(var(--background) / 0.85);
+        border-bottom: 1px solid hsl(var(--border));
+        backdrop-filter: blur(12px);
+    }
+
+    .bzk-navbar__inner {
+        display: flex;
+        align-items: center;
+        gap: var(--space-gap);
+        min-height: 4rem;
+    }
+
+    .bzk-navbar__brand {
+        display: inline-flex;
+        flex-shrink: 0;
+    }
+
+    .bzk-navbar__logo {
+        height: 2.25rem;
+        width: auto;
+    }
+
+    .bzk-navbar__links {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.75rem, 2vw, 1.75rem);
+        margin-inline: auto;
+        overflow-x: auto;
+        list-style: none;
+        scrollbar-width: none;
+    }
+
+    .bzk-navbar__links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .bzk-navbar__link {
+        position: relative;
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+        color: hsl(var(--foreground));
+        transition: color 0.2s ease;
+    }
+
+    .bzk-navbar__link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -0.35rem;
+        width: 0;
+        height: 2px;
+        background: hsl(var(--primary));
+        transition: width 0.2s ease;
+    }
+
+    .bzk-navbar__link:hover {
+        color: hsl(var(--primary));
+    }
+
+    .bzk-navbar__link:hover::after {
+        width: 100%;
+    }
+
+    .bzk-navbar__cta {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.5rem;
+        padding-inline: 1.25rem;
+        border-radius: var(--radius);
+        background: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        font-family: var(--font-display);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        white-space: nowrap;
+        transition: transform 0.2s ease;
+    }
+
+    .bzk-navbar__cta:hover {
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 640px) {
+        .bzk-navbar__links {
+            margin-inline: 0 auto;
+        }
+
+        .bzk-navbar__cta {
+            display: none;
+        }
+    }
+
     .bzk-stamp {
         display: inline-flex;
         align-items: center;

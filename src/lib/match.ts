@@ -1,19 +1,12 @@
 import { TRAITS, type Trait, type TraitVector } from '@/data/traits';
-import type { QuizQuestionData } from '@/data/quiz';
 import type { Garment } from '@/data/garments';
 
-export function buildUserVector(answers: number[], questions: QuizQuestionData[]): TraitVector {
+export function buildVectorFromTraits(selected: Trait[]): TraitVector {
   const vector = new Array<number>(TRAITS.length).fill(0);
-  answers.forEach((optionIndex, questionIndex) => {
-    const option = questions[questionIndex]?.options[optionIndex];
-    if (!option) return;
-    for (const [trait, weight] of Object.entries(option.weights)) {
-      const traitIndex = TRAITS.indexOf(trait as Trait);
-      if (traitIndex !== -1 && typeof weight === 'number') {
-        vector[traitIndex] += weight;
-      }
-    }
-  });
+  for (const trait of selected) {
+    const index = TRAITS.indexOf(trait);
+    if (index !== -1) vector[index] = 1;
+  }
   return vector;
 }
 

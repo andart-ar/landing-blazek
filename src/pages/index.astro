@@ -1,16 +1,16 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import NavBar from '@/components/NavBar.astro';
 import HeroSection from '@/components/HeroSection.astro';
-import StorySection from '@/components/StorySection.astro';
 import QuizSection from '@/components/QuizSection.astro';
 import CommunitySection from '@/components/CommunitySection.astro';
 import SiteFooter from '@/components/SiteFooter.astro';
 ---
 
 <BaseLayout>
+  <NavBar />
   <main>
     <HeroSection />
-    <StorySection />
     <QuizSection />
     <CommunitySection />
   </main>
