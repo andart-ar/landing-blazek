@@ -43,6 +43,18 @@ module.exports = {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
         },
+        'surface-pale': {
+          DEFAULT: 'hsl(var(--surface-pale))',
+          foreground: 'hsl(var(--surface-pale-foreground))',
+          muted: 'hsl(var(--surface-pale-muted))',
+          border: 'hsl(var(--surface-pale-border))',
+        },
+        'surface-warm': {
+          DEFAULT: 'hsl(var(--surface-warm))',
+          foreground: 'hsl(var(--surface-warm-foreground))',
+          muted: 'hsl(var(--surface-warm-muted))',
+          border: 'hsl(var(--surface-warm-border))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -52,6 +64,20 @@ module.exports = {
       fontFamily: {
         display: 'var(--font-display)',
         body: 'var(--font-body)',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
+        'accordion-up': 'accordion-up 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
       },
     },
   },

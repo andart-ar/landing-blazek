@@ -1,0 +1,64 @@
+---
+import LogoField from '@/components/LogoField.astro';
+
+const steps = [
+  {
+    title: 'Contanos cómo sos',
+    body: 'Respondé unas preguntas rápidas sobre tu forma de ser.',
+    icon: 'tap',
+  },
+  {
+    title: 'Te decimos qué llevás',
+    body: 'Cruzamos tu perfil y encontramos la prenda que más se te parece.',
+    icon: 'shirt',
+  },
+  {
+    title: 'Sumate a la comunidad',
+    body: 'Anticipos, contenido y acceso a la preventa exclusiva.',
+    icon: 'users',
+  },
+  {
+    title: 'A jugar',
+    body: 'Viví tu evolución con BLAZEK desde el primer drop.',
+    icon: 'spark',
+  },
+];
+---
+
+<section class="section relative overflow-hidden bg-secondary text-secondary-foreground">
+  <LogoField />
+
+  <div class="container-blazek relative z-10 flex flex-col gap-[var(--space-stack)]">
+    <div class="flex items-center gap-4">
+      <h2 class="text-section-title">¿Cómo funciona?</h2>
+    </div>
+
+    <ol class="grid gap-[var(--space-gap)] sm:grid-cols-2 lg:grid-cols-4">
+      {steps.map((step, index) => (
+        <li class="flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <span class="bzk-step__index">{index + 1}</span>
+            <span class="bzk-step__icon" aria-hidden="true">
+              {step.icon === 'tap' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V5a2 2 0 0 1 4 0v6"/><path d="M12 11V4a2 2 0 0 1 4 0v7"/><path d="M16 11V6a2 2 0 0 1 4 0v9a6 6 0 0 1-6 6h-2a6 6 0 0 1-5.2-3l-2-3.5a2 2 0 0 1 3.4-2L8 13"/></svg>
+              )}
+              {step.icon === 'shirt' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 6 16 4a2 2 0 0 1-4 2 2 2 0 0 1-4-2L3.6 6a1 1 0 0 0-.5 1.3l1.4 3.3a1 1 0 0 0 1.3.5L8 10.5V19a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-8.5l2.2.9a1 1 0 0 0 1.3-.5l1.4-3.3a1 1 0 0 0-.5-1.3Z"/></svg>
+              )}
+              {step.icon === 'users' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              )}
+              {step.icon === 'spark' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M12 8a4 4 0 0 0 4 4 4 4 0 0 0-4 4 4 4 0 0 0-4-4 4 4 0 0 0 4-4Z"/></svg>
+              )}
+            </span>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <h3 class="font-display text-lg uppercase leading-tight">{step.title}</h3>
+            <p class="text-sm text-foreground/70">{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

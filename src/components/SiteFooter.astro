@@ -2,22 +2,22 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="bzk-divider">
-  <div class="container-blazek flex flex-col gap-[var(--space-stack)] py-12 md:flex-row md:items-center md:justify-between">
+<footer class="bzk-divider bg-secondary text-secondary-foreground">
+  <div class="container-blazek flex flex-col gap-[var(--space-stack)] py-[var(--space-stack)] md:flex-row md:items-center md:justify-between">
     <div class="flex flex-col gap-2">
       <span class="font-display text-3xl uppercase tracking-tight">BLAZEK</span>
-      <span class="text-eyebrow">Próximamente · Buenos Aires</span>
+      <span class="text-eyebrow text-secondary-foreground/60">Próximamente · Buenos Aires</span>
     </div>
 
     <div class="flex flex-col gap-3">
-      <span class="text-body-alt text-muted-foreground">Sé de los primeros en tenerla.</span>
+      <span class="text-body-alt text-secondary-foreground/75">Sé de los primeros en tenerla.</span>
       <div class="flex flex-wrap gap-4">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="bzk-stamp text-secondary">Instagram</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="bzk-stamp border-secondary-foreground/40 text-secondary-foreground">Instagram</a>
       </div>
     </div>
   </div>
 
-  <div class="container-blazek pb-8">
-    <span class="text-sm text-muted-foreground">© {year} BLAZEK. Todos los derechos reservados.</span>
+  <div class="container-blazek pb-[var(--space-stack)]">
+    <span class="text-sm text-secondary-foreground/55">© {year} BLAZEK. Todos los derechos reservados.</span>
   </div>
 </footer>

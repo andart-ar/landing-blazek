@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ComponentType } from 'react';
+import { Sparkles, Target, Users, Sun, Shield, ScanSearch, Leaf } from 'lucide-react';
 import { TRAITS, type Trait } from '@/data/traits';
 import { GARMENTS } from '@/data/garments';
 import { buildVectorFromTraits, matchGarment, type MatchResult } from '@/lib/match';
@@ -6,6 +7,17 @@ import ResultTeaser from '@/components/ResultTeaser';
 import { cn } from '@/lib/utils';
 
 const REVEAL_DELAY_MS = 900;
+const MIN_TRAITS_TO_REVEAL = 2;
+
+const TRAIT_ICON: Record<Trait, ComponentType<{ className?: string }>> = {
+  Creativo: Sparkles,
+  Ambicioso: Target,
+  Sociable: Users,
+  Optimista: Sun,
+  Reservado: Shield,
+  Detallista: ScanSearch,
+  Tranquilo: Leaf,
+};
 
 export default function Quiz() {
   const [selected, setSelected] = useState<Trait[]>([]);
@@ -18,7 +30,7 @@ export default function Quiz() {
   }, [selected]);
 
   useEffect(() => {
-    if (selected.length === 0) {
+    if (selected.length < MIN_TRAITS_TO_REVEAL) {
       setResult(null);
       setIsLoading(false);
       return;
@@ -41,6 +53,7 @@ export default function Quiz() {
       <div className="flex flex-wrap gap-2.5">
         {TRAITS.map((trait) => {
           const isSelected = selected.includes(trait);
+          const Icon = TRAIT_ICON[trait];
           return (
             <button
               key={trait}
@@ -48,12 +61,13 @@ export default function Quiz() {
               onClick={() => toggleTrait(trait)}
               aria-pressed={isSelected}
               className={cn(
-                'rounded-full border px-4 py-2 text-sm transition-colors md:text-base',
+                'inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold transition-all md:text-base',
                 isSelected
-                  ? 'border-primary bg-primary text-primary-foreground'
-                  : 'border-secondary-foreground/30 text-secondary-foreground/70 hover:border-secondary-foreground hover:text-secondary-foreground',
+                  ? 'border-white bg-white text-primary hover:bg-transparent hover:text-white'
+                  : 'border-white/40 bg-white text-surface-warm-foreground hover:border-white hover:text-primary',
               )}
             >
+              <Icon className="h-4 w-4" />
               {trait}
             </button>
           );
@@ -62,8 +76,8 @@ export default function Quiz() {
 
       {isLoading && (
         <div className="flex items-center gap-3">
-          <span className="h-5 w-5 animate-spin rounded-full border-2 border-secondary-foreground/30 border-t-primary" />
-          <span className="text-eyebrow text-secondary-foreground/70">Buscando tu prenda</span>
+          <span className="h-5 w-5 animate-spin rounded-full border-2 border-surface-warm-foreground/25 border-t-surface-warm-foreground" />
+          <span className="text-eyebrow text-surface-warm-foreground/70">Buscando tu prenda</span>
         </div>
       )}
 

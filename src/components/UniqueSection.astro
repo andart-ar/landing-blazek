@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import chairImage from '@/assets/images/background-image.png';
+
+const notesLeft = [
+  { tilt: '-rotate-3', label: '100% algodón', body: 'Prendas premium que se sienten distinto.' },
+  { tilt: 'rotate-2', label: 'Hecho en BA', body: 'Diseñado y producido en Buenos Aires.' },
+  { tilt: '-rotate-2', label: 'Precio justo', body: 'Sin vueltas ni sobreprecios.' },
+];
+
+const notesRight = [
+  { tilt: 'rotate-3', label: 'Drops limitados', body: 'Ediciones cortas. Cuando se van, se van.' },
+  { tilt: 'rotate-2', label: 'Comunidad primero', body: 'Antes que clientes, buscamos gente.' },
+  { tilt: '-rotate-2', label: 'Evolución', body: 'Cada colección es un cambio, no una copia.' },
+];
+---
+
+<section id="comunidad" class="section-pale section relative overflow-hidden">
+  <div class="container-blazek relative z-10 flex flex-col gap-[var(--space-stack)]">
+    <h2 class="text-section-title mx-auto max-w-3xl text-center">
+      Cosas que nos hacen <span class="text-primary">únicos</span>
+    </h2>
+
+    <div class="grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr]">
+      <div class="order-2 flex flex-col gap-8 lg:order-1">
+        {notesLeft.map((note) => (
+          <article class={`bzk-note bzk-note--white ${note.tilt} self-start`}>
+            <span class="bzk-note__label">{note.label}</span>
+            {note.body}
+          </article>
+        ))}
+      </div>
+
+      <div class="order-1 mx-auto w-full max-w-[22rem] lg:order-2">
+        <Image
+          src={chairImage}
+          alt="Miembro de la comunidad BLAZEK"
+          loading="lazy"
+          decoding="async"
+          widths={[320, 520, 700]}
+          sizes="(min-width: 1024px) 24vw, 80vw"
+        />
+      </div>
+
+      <div class="order-3 flex flex-col gap-8">
+        {notesRight.map((note) => (
+          <article class={`bzk-note bzk-note--white ${note.tilt} self-end`}>
+            <span class="bzk-note__label">{note.label}</span>
+            {note.body}
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

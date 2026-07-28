@@ -1,0 +1,13 @@
+---
+import whiteLogo from '@/assets/logos/whiteLogo.png';
+import blackLogo from '@/assets/logos/blackLogo.png';
+
+interface Props {
+  tone?: 'light' | 'dark';
+}
+
+const { tone = 'light' } = Astro.props;
+const logoSrc = tone === 'dark' ? blackLogo.src : whiteLogo.src;
+---
+
+<div class="bzk-logo-field" style={`--logo-src: url(${logoSrc})`} aria-hidden="true"></div>

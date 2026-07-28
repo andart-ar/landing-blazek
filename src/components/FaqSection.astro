@@ -1,0 +1,40 @@
+---
+import LogoField from '@/components/LogoField.astro';
+import FaqAccordion from '@/components/FaqAccordion.tsx';
+
+const faqs = [
+  {
+    question: '¿Cuándo lanza BLAZEK?',
+    answer:
+      'Estamos en preventa. Sumándote a la lista te avisamos apenas abramos el primer drop, sin que te lo pierdas.',
+  },
+  {
+    question: '¿Qué incluye la preventa exclusiva?',
+    answer:
+      'Acceso anticipado a las prendas y precios de lanzamiento antes que el público general.',
+  },
+  {
+    question: '¿Dónde producen las prendas?',
+    answer: 'Diseñamos y producimos en Buenos Aires, con algodón premium en ediciones limitadas.',
+  },
+  {
+    question: '¿Tiene algún costo anotarse?',
+    answer: 'No. Anotarte es gratis y sin compromiso. Solo dejás tu mail y esperás el aviso.',
+  },
+  {
+    question: '¿Hacen envíos?',
+    answer:
+      'Sí, a todo el país. Los detalles los compartimos con la comunidad antes del lanzamiento.',
+  },
+];
+---
+
+<section id="faq" class="section relative overflow-hidden">
+  <LogoField />
+
+  <div class="container-blazek relative z-10 flex flex-col gap-[var(--space-stack)]">
+    <h2 class="text-section-title">Preguntas frecuentes</h2>
+
+    <FaqAccordion faqs={faqs} client:visible />
+  </div>
+</section>

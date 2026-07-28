@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '@/assets/logos/blackLogo.png';
+import logo from '@/assets/logos/whiteLogo.png';
 
 const links = [
   { label: 'Inicio', href: '#inicio' },
@@ -15,14 +15,53 @@ const links = [
       <Image src={logo} alt="BLAZEK" width={72} height={48} class="bzk-navbar__logo" />
     </a>
 
-    <ul class="bzk-navbar__links">
-      {links.map((link) => (
-        <li>
-          <a href={link.href} class="bzk-navbar__link">{link.label}</a>
-        </li>
-      ))}
-    </ul>
+    <button
+      type="button"
+      class="bzk-navbar__toggle"
+      aria-controls="nav-menu"
+      aria-expanded="false"
+      aria-label="Abrir menú"
+    >
+      <span class="bzk-navbar__toggle-bar"></span>
+      <span class="bzk-navbar__toggle-bar"></span>
+      <span class="bzk-navbar__toggle-bar"></span>
+    </button>
 
-    <a href="#waitlist" class="bzk-navbar__cta">Waitlist</a>
+    <div id="nav-menu" class="bzk-navbar__menu">
+      <ul class="bzk-navbar__links">
+        {links.map((link) => (
+          <li>
+            <a href={link.href} class="bzk-navbar__link">{link.label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <a href="#waitlist" class="bzk-navbar__cta">Waitlist</a>
+    </div>
   </nav>
 </header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.bzk-navbar__toggle');
+  const menu = document.getElementById('nav-menu');
+
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      menu.classList.toggle('is-open', open);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menu.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+</script>

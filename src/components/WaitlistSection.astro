@@ -1,0 +1,34 @@
+---
+import WaitlistForm from '@/components/WaitlistForm.tsx';
+import LogoField from '@/components/LogoField.astro';
+---
+
+<section id="waitlist" class="relative overflow-hidden bg-secondary text-secondary-foreground">
+  <LogoField />
+
+  <div class="container-blazek relative z-10 grid gap-[var(--space-stack)] py-[var(--space-section)] lg:grid-cols-2 lg:items-center">
+    <div class="flex flex-col gap-6">
+      <h2 class="text-section-title max-w-md">
+        Asegurate de ser parte del <span class="text-primary">comienzo</span>.
+      </h2>
+
+      <div class="flex items-end gap-4">
+        <span class="bzk-bignumber">200</span>
+        <p class="max-w-[14rem] pb-3 text-sm text-secondary-foreground/80">
+          Solo los primeros <strong class="text-foreground">200</strong> tendrán acceso a la
+          preventa exclusiva.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <WaitlistForm variant="general" orientation="inline" tone="dark" client:visible />
+      <p class="flex items-center gap-2 text-sm text-secondary-foreground/70">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        No te vamos a spammear. Solo el aviso que importa.
+      </p>
+    </div>
+  </div>
+</section>
