@@ -2,23 +2,23 @@ import type { WaitlistVariant } from '@/lib/waitlist';
 
 interface WaitlistEmailOptions {
   siteUrl: string;
+  garmentName?: string;
 }
 
 interface WaitlistEmailContent {
   subject: string;
   html: string;
+  text: string;
 }
 
 const BRAND_RED = '#bc1616';
 const BRAND_NAVY = '#182848';
-const BRAND_GOLD = '#f0c43a';
 const BRAND_CREAM = '#faf3e4';
 const BRAND_INK = '#141d33';
 const BRAND_INK_SOFT = '#4d5a78';
 const BRAND_BORDER = '#e7dbc4';
 
-const FONT_BODY = "'Hanken Grotesk', Helvetica, Arial, sans-serif";
-const FONT_DISPLAY = "'Hanken Grotesk', Helvetica, Arial, sans-serif";
+const EMAIL_FONT_STACK = "'Hanken Grotesk', Helvetica, Arial, sans-serif";
 
 const VARIANT_COPY: Record<
   WaitlistVariant,
@@ -38,15 +38,41 @@ const VARIANT_COPY: Record<
   },
 };
 
+function resolveBody(variant: WaitlistVariant, garmentName?: string): string {
+  if (variant === 'result' && garmentName) {
+    return `Elegiste la ${garmentName} en el quiz. Te avisamos a este mail apenas esté disponible para vos.`;
+  }
+  return VARIANT_COPY[variant].body;
+}
+
+function buildPlainText(
+  copy: (typeof VARIANT_COPY)[WaitlistVariant],
+  body: string,
+  siteUrl: string,
+): string {
+  return [
+    copy.heading.toUpperCase(),
+    '',
+    body,
+    '',
+    `${copy.cta}: ${siteUrl}`,
+    '',
+    'El cambio es lo único seguro.',
+    'Recibiste este mail porque te anotaste en BLAZEK. Si no fuiste vos, ignoralo.',
+  ].join('\n');
+}
+
 export function buildWaitlistWelcomeEmail(
   variant: WaitlistVariant,
-  { siteUrl }: WaitlistEmailOptions,
+  { siteUrl, garmentName }: WaitlistEmailOptions,
 ): WaitlistEmailContent {
   const copy = VARIANT_COPY[variant];
+  const body = resolveBody(variant, garmentName);
   const logoUrl = `${siteUrl}/email/blazek-logo.png`;
 
   return {
     subject: `BLAZEK — ${copy.heading}`,
+    text: buildPlainText(copy, body, siteUrl),
     html: `<!doctype html>
 <html lang="es">
   <head>
@@ -54,12 +80,8 @@ export function buildWaitlistWelcomeEmail(
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
     <title>${copy.heading}</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;700;800&display=swap"
-    />
   </head>
-  <body style="margin:0;padding:0;background-color:${BRAND_CREAM};font-family:${FONT_BODY};color:${BRAND_INK};">
+  <body style="margin:0;padding:0;background-color:${BRAND_CREAM};font-family:${EMAIL_FONT_STACK};color:${BRAND_INK};">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:${BRAND_CREAM};padding:40px 16px;">
       <tr>
         <td align="center">
@@ -97,7 +119,7 @@ export function buildWaitlistWelcomeEmail(
 
             <tr>
               <td style="padding:16px 40px 0;" align="center">
-                <h1 style="margin:0;font-family:${FONT_DISPLAY};font-weight:800;font-size:30px;line-height:1.1;letter-spacing:-0.01em;text-transform:uppercase;color:${BRAND_NAVY};text-align:center;">
+                <h1 style="margin:0;font-family:${EMAIL_FONT_STACK};font-weight:800;font-size:30px;line-height:1.1;letter-spacing:-0.01em;text-transform:uppercase;color:${BRAND_NAVY};text-align:center;">
                   ${copy.heading}
                 </h1>
               </td>
@@ -106,7 +128,7 @@ export function buildWaitlistWelcomeEmail(
             <tr>
               <td style="padding:16px 40px 32px;" align="center">
                 <p style="margin:0;font-size:16px;line-height:1.6;color:${BRAND_INK_SOFT};text-align:center;">
-                  ${copy.body}
+                  ${body}
                 </p>
               </td>
             </tr>
@@ -118,7 +140,7 @@ export function buildWaitlistWelcomeEmail(
                     <td style="border-radius:12px;background-color:${BRAND_RED};">
                       <a
                         href="${siteUrl}"
-                        style="display:inline-block;padding:16px 32px;font-family:${FONT_DISPLAY};font-weight:800;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;color:#ffffff;text-decoration:none;"
+                        style="display:inline-block;padding:16px 32px;font-family:${EMAIL_FONT_STACK};font-weight:800;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;color:#ffffff;text-decoration:none;"
                       >
                         ${copy.cta}
                       </a>
@@ -140,7 +162,7 @@ export function buildWaitlistWelcomeEmail(
 
             <tr>
               <td style="padding:24px 40px 32px;" align="center">
-                <p style="margin:0 0 4px;font-family:${FONT_DISPLAY};font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:${BRAND_NAVY};">
+                <p style="margin:0 0 4px;font-family:${EMAIL_FONT_STACK};font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:${BRAND_NAVY};">
                   El cambio es lo único seguro
                 </p>
                 <p style="margin:0;font-size:12px;line-height:1.6;color:${BRAND_INK_SOFT};">

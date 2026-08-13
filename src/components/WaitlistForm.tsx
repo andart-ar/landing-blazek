@@ -1,9 +1,10 @@
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import TurnstileWidget, { type TurnstileHandle } from '@/components/TurnstileWidget';
 import { cn } from '@/lib/utils';
-import { WAITLIST_EMAIL_PATTERN, type WaitlistVariant } from '@/lib/waitlist';
+import { isValidWaitlistEmail, type WaitlistVariant } from '@/lib/waitlist';
 
 interface WaitlistFormProps {
   variant: WaitlistVariant;
@@ -12,7 +13,7 @@ interface WaitlistFormProps {
   tone?: 'default' | 'dark';
 }
 
-type SubmissionStatus = 'idle' | 'invalid' | 'submitting' | 'success' | 'error';
+type SubmissionStatus = 'idle' | 'invalid' | 'unverified' | 'submitting' | 'success' | 'error';
 
 const COPY: Record<WaitlistVariant, { cta: string; success: string }> = {
   general: {
@@ -26,6 +27,8 @@ const COPY: Record<WaitlistVariant, { cta: string; success: string }> = {
 };
 
 const ERROR_MESSAGE = 'Algo falló. Probá de nuevo en un rato.';
+const UNVERIFIED_MESSAGE = 'Esperá un segundo a que terminemos de verificar y probá de nuevo.';
+const INVALID_MESSAGE = 'Poné un email válido para sumarte.';
 
 export default function WaitlistForm({
   variant,
@@ -35,13 +38,24 @@ export default function WaitlistForm({
 }: WaitlistFormProps) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<SubmissionStatus>('idle');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<TurnstileHandle | null>(null);
   const isInline = orientation === 'inline';
   const isDark = tone === 'dark';
 
+  const resetChallenge = () => {
+    setTurnstileToken('');
+    turnstileRef.current?.reset();
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!WAITLIST_EMAIL_PATTERN.test(email)) {
+    if (!isValidWaitlistEmail(email)) {
       setStatus('invalid');
+      return;
+    }
+    if (!turnstileToken) {
+      setStatus('unverified');
       return;
     }
     setStatus('submitting');
@@ -49,14 +63,16 @@ export default function WaitlistForm({
       const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, garmentId, variant }),
+        body: JSON.stringify({ email, garmentId, variant, turnstileToken }),
       });
       if (!response.ok) {
+        resetChallenge();
         setStatus('error');
         return;
       }
       setStatus('success');
     } catch {
+      resetChallenge();
       setStatus('error');
     }
   };
@@ -86,7 +102,7 @@ export default function WaitlistForm({
             value={email}
             onChange={(event) => {
               setEmail(event.target.value);
-              if (status === 'invalid' || status === 'error') setStatus('idle');
+              if (status !== 'idle' && status !== 'submitting') setStatus('idle');
             }}
             aria-invalid={status === 'invalid' || status === 'error'}
             className={cn(
@@ -95,9 +111,10 @@ export default function WaitlistForm({
             )}
           />
           {status === 'invalid' && (
-            <span className="text-sm font-medium text-destructive">
-              Poné un email válido para sumarte.
-            </span>
+            <span className="text-sm font-medium text-destructive">{INVALID_MESSAGE}</span>
+          )}
+          {status === 'unverified' && (
+            <span className="text-sm font-medium text-destructive">{UNVERIFIED_MESSAGE}</span>
           )}
           {status === 'error' && (
             <span className="text-sm font-medium text-destructive">{ERROR_MESSAGE}</span>
@@ -112,6 +129,12 @@ export default function WaitlistForm({
           {COPY[variant].cta}
         </Button>
       </div>
+
+      <TurnstileWidget
+        onVerify={setTurnstileToken}
+        onExpire={() => setTurnstileToken('')}
+        handleRef={turnstileRef}
+      />
     </form>
   );
 }

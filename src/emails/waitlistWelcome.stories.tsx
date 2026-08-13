@@ -20,3 +20,12 @@ export const General: Story = {
 export const Result: Story = {
   args: { html: buildWaitlistWelcomeEmail('result', { siteUrl: PREVIEW_SITE_URL }).html },
 };
+
+export const ResultWithGarment: Story = {
+  args: {
+    html: buildWaitlistWelcomeEmail('result', {
+      siteUrl: PREVIEW_SITE_URL,
+      garmentName: 'Remera Classic BZK Negra',
+    }).html,
+  },
+};
