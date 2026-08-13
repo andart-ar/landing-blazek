@@ -9,7 +9,7 @@ interface WaitlistEmailContent {
   html: string;
 }
 
-const BRAND_ORANGE = '#e35a1f';
+const BRAND_RED = '#5d1015';
 const BRAND_NAVY = '#182848';
 const BRAND_GOLD = '#f0c43a';
 const BRAND_CREAM = '#faf3e4';
@@ -81,7 +81,7 @@ export function buildWaitlistWelcomeEmail(
               <td style="padding:0 32px;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td height="4" style="line-height:4px;font-size:4px;background-color:${BRAND_ORANGE};border-radius:999px;">&nbsp;</td>
+                    <td height="4" style="line-height:4px;font-size:4px;background-color:${BRAND_RED};border-radius:999px;">&nbsp;</td>
                   </tr>
                 </table>
               </td>
@@ -89,7 +89,7 @@ export function buildWaitlistWelcomeEmail(
 
             <tr>
               <td style="padding:32px 40px 8px;" align="center">
-                <span style="display:inline-block;padding:6px 16px;border:1.5px solid ${BRAND_ORANGE};border-radius:999px;font-size:11px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND_ORANGE};">
+                <span style="display:inline-block;padding:6px 16px;border:1.5px solid ${BRAND_RED};border-radius:999px;font-size:11px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND_RED};">
                   ${copy.badge}
                 </span>
               </td>
@@ -115,7 +115,7 @@ export function buildWaitlistWelcomeEmail(
               <td align="center" style="padding:0 40px 40px;">
                 <table role="presentation" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td style="border-radius:12px;background-color:${BRAND_ORANGE};">
+                    <td style="border-radius:12px;background-color:${BRAND_RED};">
                       <a
                         href="${siteUrl}"
                         style="display:inline-block;padding:16px 32px;font-family:${FONT_DISPLAY};font-weight:800;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;color:#ffffff;text-decoration:none;"
