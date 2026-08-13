@@ -9,7 +9,7 @@ interface WaitlistEmailContent {
   html: string;
 }
 
-const BRAND_RED = '#5d1015';
+const BRAND_RED = '#bc1616';
 const BRAND_NAVY = '#182848';
 const BRAND_GOLD = '#f0c43a';
 const BRAND_CREAM = '#faf3e4';
