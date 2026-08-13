@@ -76,8 +76,8 @@ export default function Quiz() {
 
       {isLoading && (
         <div className="flex items-center gap-3">
-          <span className="h-5 w-5 animate-spin rounded-full border-2 border-surface-warm-foreground/25 border-t-surface-warm-foreground" />
-          <span className="text-eyebrow text-surface-warm-foreground/70">Buscando tu prenda</span>
+          <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/25 border-t-white" />
+          <span className="text-eyebrow text-white/70">Buscando tu prenda</span>
         </div>
       )}
 
