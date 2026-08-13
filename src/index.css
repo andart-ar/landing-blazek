@@ -37,8 +37,8 @@
         --secondary: 206 64% 11%;
         --secondary-foreground: 40 42% 96%;
 
-        --accent: 41 91% 54%;
-        --accent-foreground: 206 66% 14%;
+        --accent: var(--primary);
+        --accent-foreground: var(--primary-foreground);
 
         --muted: 204 38% 27%;
         --muted-foreground: 200 33% 80%;
@@ -60,7 +60,6 @@
 
         --brand-navy: 206 66% 13%;
         --brand-ocean: 201 55% 30%;
-        --brand-red: 6 78% 50%;
 
         --surface-pale: 197 52% 84%;
         --surface-pale-foreground: 206 66% 15%;

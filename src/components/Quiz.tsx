@@ -63,7 +63,7 @@ export default function Quiz() {
               className={cn(
                 'inline-flex items-center gap-2 rounded-full border-2 px-4 py-2.5 text-sm font-semibold transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-surface-warm md:text-base',
                 isSelected
-                  ? 'border-white bg-white text-surface-warm shadow-[0_0_0_4px_hsl(0_0%_100%/0.28)] hover:bg-white/90'
+                  ? 'border-white bg-white text-surface-warm ring-4 ring-white/30 hover:bg-white/90'
                   : 'border-white/45 bg-transparent text-white hover:-translate-y-0.5 hover:border-white hover:bg-white/15',
               )}
             >
