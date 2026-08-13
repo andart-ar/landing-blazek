@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, type ComponentType } from 'react';
-import { Sparkles, Target, Users, Sun, Shield, ScanSearch, Leaf } from 'lucide-react';
+import { Sparkles, Target, Users, Sun, Shield, ScanSearch, Leaf, Check } from 'lucide-react';
 import { TRAITS, type Trait } from '@/data/traits';
 import { GARMENTS } from '@/data/garments';
 import { buildVectorFromTraits, matchGarment, type MatchResult } from '@/lib/match';
@@ -53,7 +53,7 @@ export default function Quiz() {
       <div className="flex flex-wrap gap-2.5">
         {TRAITS.map((trait) => {
           const isSelected = selected.includes(trait);
-          const Icon = TRAIT_ICON[trait];
+          const Icon = isSelected ? Check : TRAIT_ICON[trait];
           return (
             <button
               key={trait}
@@ -61,13 +61,13 @@ export default function Quiz() {
               onClick={() => toggleTrait(trait)}
               aria-pressed={isSelected}
               className={cn(
-                'inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold transition-all md:text-base',
+                'inline-flex items-center gap-2 rounded-full border-2 px-4 py-2.5 text-sm font-semibold transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-surface-warm md:text-base',
                 isSelected
-                  ? 'border-white bg-white text-primary hover:bg-transparent hover:text-white'
-                  : 'border-white/40 bg-white text-surface-warm-foreground hover:border-white hover:text-primary',
+                  ? 'border-white bg-white text-surface-warm shadow-[0_0_0_4px_hsl(0_0%_100%/0.28)] hover:bg-white/90'
+                  : 'border-white/45 bg-transparent text-white hover:-translate-y-0.5 hover:border-white hover:bg-white/15',
               )}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="h-4 w-4 shrink-0" />
               {trait}
             </button>
           );
