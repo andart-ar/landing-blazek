@@ -12,7 +12,7 @@ const links = [
 <header class="bzk-navbar">
   <nav class="container-blazek bzk-navbar__inner" aria-label="Navegación principal">
     <a href="#inicio" class="bzk-navbar__brand" aria-label="BLAZEK — Inicio">
-      <Image src={logo} alt="BLAZEK" width={72} height={48} class="bzk-navbar__logo" />
+      <Image src={logo} alt="" width={72} height={48} class="bzk-navbar__logo" />
     </a>
 
     <button
@@ -42,26 +42,43 @@ const links = [
 </header>
 
 <script>
+  const DESKTOP_QUERY = '(min-width: 768px)';
+
   const toggle = document.querySelector<HTMLButtonElement>('.bzk-navbar__toggle');
   const menu = document.getElementById('nav-menu');
+  const header = document.querySelector('.bzk-navbar');
 
-  if (toggle && menu) {
+  if (toggle && menu && header) {
+    const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
     const setOpen = (open: boolean) => {
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
       menu.classList.toggle('is-open', open);
     };
 
-    toggle.addEventListener('click', () => {
-      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-    });
+    const closeAndRestoreFocus = () => {
+      if (!isOpen()) return;
+      setOpen(false);
+      toggle.focus();
+    };
+
+    toggle.addEventListener('click', () => setOpen(!isOpen()));
 
     menu.addEventListener('click', (event) => {
       if ((event.target as HTMLElement).closest('a')) setOpen(false);
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') closeAndRestoreFocus();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!header.contains(event.target as Node)) setOpen(false);
+    });
+
+    window.matchMedia(DESKTOP_QUERY).addEventListener('change', (event) => {
+      if (event.matches) setOpen(false);
     });
   }
 </script>

@@ -48,8 +48,18 @@ export default function Quiz() {
     );
   };
 
+  const statusMessage = isLoading
+    ? 'Buscando tu prenda'
+    : result
+      ? `Tu prenda es ${result.garment.name}`
+      : '';
+
   return (
     <div className="flex flex-col gap-8">
+      <p role="status" className="sr-only">
+        {statusMessage}
+      </p>
+
       <div className="flex flex-wrap gap-2.5">
         {TRAITS.map((trait) => {
           const isSelected = selected.includes(trait);
@@ -64,7 +74,7 @@ export default function Quiz() {
                 'inline-flex items-center gap-2 rounded-full border-2 px-4 py-2.5 text-sm font-semibold transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-surface-warm md:text-base',
                 isSelected
                   ? 'border-white bg-white text-surface-warm ring-4 ring-white/30 hover:bg-white/90'
-                  : 'border-white/45 bg-transparent text-white hover:-translate-y-0.5 hover:border-white hover:bg-white/15',
+                  : 'border-white/70 bg-transparent text-white hover:-translate-y-0.5 hover:border-white hover:bg-white/15',
               )}
             >
               <Icon className="h-4 w-4 shrink-0" />
@@ -75,7 +85,7 @@ export default function Quiz() {
       </div>
 
       {isLoading && (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3" aria-hidden="true">
           <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/25 border-t-white" />
           <span className="text-eyebrow text-white/70">Buscando tu prenda</span>
         </div>

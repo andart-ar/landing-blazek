@@ -10,11 +10,11 @@ const avatars = [
 ];
 ---
 
-<section id="inicio" class="section relative overflow-hidden">
+<section id="inicio" class="clip-x section relative">
   <LogoField />
 
   <div class="container-blazek relative z-10 grid items-center gap-[var(--space-stack)] md:grid-cols-2">
-    <div class="animate-rise-in flex flex-col gap-6">
+    <div class="animate-rise-in flex min-w-0 flex-col gap-6">
       <h1 class="text-hero">
         El cambio<br />
         es lo <span class="text-primary">único</span><br />
@@ -44,7 +44,7 @@ const avatars = [
       </div>
     </div>
 
-    <div class="animate-rise-in relative mx-auto w-full max-w-md">
+    <div class="animate-rise-in relative mx-auto w-full min-w-0 max-w-md">
       <div class="bzk-hero-blob">
         <Image
           src={heroImage}
@@ -52,7 +52,7 @@ const avatars = [
           loading="eager"
           decoding="async"
           widths={[400, 700, 900]}
-          sizes="(min-width: 768px) 40vw, 90vw"
+          sizes="(min-width: 768px) 28rem, 90vw"
         />
       </div>
     </div>

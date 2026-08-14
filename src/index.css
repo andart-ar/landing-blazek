@@ -43,12 +43,12 @@
         --muted: 204 38% 27%;
         --muted-foreground: 200 33% 80%;
 
-        --destructive: 6 76% 52%;
-        --destructive-foreground: 0 0% 100%;
+        --destructive: 6 90% 72%;
+        --destructive-foreground: 0 0% 9%;
 
         --border: 200 40% 62%;
-        --input: 204 30% 30%;
-        --ring: 0 79% 41%;
+        --input: 204 30% 50%;
+        --ring: 40 42% 96%;
 
         --chart-1: 0 79% 41%;
         --chart-2: 41 91% 54%;
@@ -79,12 +79,22 @@
     }
 
     html {
+        overflow-x: hidden;
         scroll-behavior: smooth;
         scroll-padding-top: 4rem;
     }
 
+    /* clip does not create a scroll container, so sticky and smooth scroll survive */
+    @supports (overflow: clip) {
+        html {
+            overflow-x: clip;
+        }
+    }
+
     body {
         @apply text-foreground;
+        max-width: 100%;
+        overflow-wrap: break-word;
         font-family: var(--font-body);
         font-weight: var(--weight-body);
         color: hsl(var(--foreground));
@@ -107,6 +117,10 @@
             "ss02" on;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
+    }
+
+    :where(iframe, embed, object) {
+        max-width: 100%;
     }
 
     h1,
@@ -175,6 +189,17 @@
         padding-block: var(--space-section);
     }
 
+    /* clip keeps the y axis visible, so tilted cards and focus rings are not cut */
+    .clip-x {
+        overflow-x: hidden;
+    }
+
+    @supports (overflow: clip) {
+        .clip-x {
+            overflow-x: clip;
+        }
+    }
+
     .card-blazek {
         border: 2px solid hsl(var(--border));
         border-radius: var(--radius);
@@ -201,7 +226,7 @@
             color 0.2s ease;
     }
 
-    @media (min-width: 480px) {
+    @media (min-width: 40rem) {
         .btn {
             width: auto;
         }
@@ -215,19 +240,29 @@
     .btn--primary:hover {
         transform: translateY(-2px);
     }
-
-    .btn--outline {
-        border: 2px solid hsl(var(--foreground));
-        color: hsl(var(--foreground));
-    }
-
-    .btn--outline:hover {
-        background: hsl(var(--foreground));
-        color: hsl(var(--background));
-    }
 }
 
 @layer components {
+    .bzk-skip-link {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        transform: translateY(-150%);
+        padding: 0.75rem 1.25rem;
+        border-radius: 0 0 var(--radius) 0;
+        background: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        font-family: var(--font-display);
+        font-weight: var(--weight-eyebrow);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .bzk-skip-link:focus-visible {
+        transform: translateY(0);
+    }
+
     .bzk-navbar {
         position: sticky;
         top: 0;
@@ -246,7 +281,9 @@
 
     .bzk-navbar__brand {
         display: inline-flex;
+        align-items: center;
         flex-shrink: 0;
+        min-height: 2.75rem;
     }
 
     .bzk-navbar__logo {
@@ -341,7 +378,7 @@
         flex-shrink: 0;
         align-items: center;
         justify-content: center;
-        min-height: 2.5rem;
+        min-height: 2.75rem;
         padding-inline: 1.25rem;
         border-radius: var(--radius);
         background: hsl(var(--primary));
@@ -366,10 +403,7 @@
     }
 
     @media (max-width: 767.98px) {
-        .bzk-navbar__inner {
-            position: relative;
-        }
-
+        /* the panel resolves against the sticky header, not the padded container, so it reaches both edges */
         .bzk-navbar__menu {
             position: absolute;
             top: 100%;
@@ -383,23 +417,42 @@
             border-bottom: 1px solid hsl(var(--border));
             opacity: 0;
             transform: translateY(-0.5rem);
+            visibility: hidden;
             pointer-events: none;
             transition:
                 opacity 0.2s ease,
-                transform 0.2s ease;
+                transform 0.2s ease,
+                visibility 0s linear 0.2s;
         }
 
         .bzk-navbar__menu.is-open {
             opacity: 1;
             transform: translateY(0);
+            visibility: visible;
             pointer-events: auto;
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease,
+                visibility 0s;
         }
 
         .bzk-navbar__links {
             flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
+            align-items: stretch;
+            gap: 0.25rem;
             margin-inline: 0;
+        }
+
+        .bzk-navbar__link {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: 2.75rem;
+            white-space: normal;
+        }
+
+        .bzk-navbar__link::after {
+            bottom: 0.55rem;
         }
 
         .bzk-navbar__cta {
@@ -412,6 +465,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.4rem;
+        min-height: 2.75rem;
         padding: 0.4rem 1rem;
         border: 2px solid currentColor;
         border-radius: 999px;
@@ -437,43 +491,12 @@
         object-fit: cover;
     }
 
-    .bzk-halftone {
-        background-image: radial-gradient(currentColor 1px, transparent 1.5px);
-        background-size: 10px 10px;
-        color: hsl(var(--foreground) / 0.12);
-    }
-
-    .bzk-gradient-text {
-        background-image: linear-gradient(
-            90deg,
-            hsl(var(--accent)),
-            hsl(var(--primary))
-        );
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-    }
-
     .bzk-divider {
         border-top: 1px solid hsl(var(--border) / 0.25);
-    }
-
-    .bzk-divider--dashed {
-        border-top: 2px dashed hsl(var(--border) / 0.3);
     }
 }
 
 @layer components {
-    .bzk-logo-mark {
-        position: absolute;
-        z-index: 0;
-        width: min(42rem, 82vw);
-        height: auto;
-        opacity: 0.06;
-        pointer-events: none;
-        user-select: none;
-    }
-
     .bzk-logo-field {
         position: absolute;
         inset: 0;
@@ -585,12 +608,14 @@
 
     .section-pale {
         position: relative;
+        --ring: 206 66% 13%;
         background: hsl(var(--surface-pale));
         color: hsl(var(--surface-pale-foreground));
     }
 
     .section-warm {
         position: relative;
+        --ring: 0 0% 100%;
         background: hsl(var(--surface-warm));
         color: hsl(var(--surface-warm-foreground));
     }
@@ -655,24 +680,24 @@
         letter-spacing: -0.04em;
     }
 
-    .bzk-input-dark {
-        flex: 1;
-        min-height: 3.5rem;
-        padding-inline: 1.25rem;
-        border-radius: var(--radius);
-        border: 2px solid hsl(var(--foreground) / 0.25);
-        background: hsl(var(--foreground) / 0.06);
-        color: hsl(var(--foreground));
-        font-size: 1rem;
+    /* the Turnstile iframe is a fixed 300x65 box, so it is scaled to fit narrow cards */
+    .bzk-turnstile {
+        --turnstile-height: 65px;
+        --turnstile-scale: 1;
+        width: 100%;
+        max-width: 100%;
+        height: calc(var(--turnstile-height) * var(--turnstile-scale));
     }
 
-    .bzk-input-dark::placeholder {
-        color: hsl(var(--foreground) / 0.5);
+    .bzk-turnstile > div {
+        transform: scale(var(--turnstile-scale));
+        transform-origin: top left;
     }
 
-    .bzk-input-dark:focus-visible {
-        outline: 2px solid hsl(var(--ring));
-        outline-offset: 2px;
+    @media (max-width: 25rem) {
+        .bzk-turnstile {
+            --turnstile-scale: 0.85;
+        }
     }
 
 }
@@ -693,13 +718,17 @@
         }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-        .animate-rise-in {
-            animation: none;
-        }
-        html {
-            scroll-behavior: auto;
-        }
+}
+
+/* unlayered !important so it outranks every Tailwind animation and transition utility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
 
@@ -721,6 +750,14 @@
     border-radius: 999px;
 }
 
+/* fixed attachment is unreliable on iOS Safari and repaints badly during momentum scroll */
+@media (max-width: 767.98px) {
+    body {
+        background-attachment: scroll;
+    }
+}
+
+/* small-phone typography tuning, not a layout breakpoint */
 @media (max-width: 480px) {
     h1,
     h2,

@@ -26,9 +26,11 @@ const COPY: Record<WaitlistVariant, { cta: string; success: string }> = {
   },
 };
 
-const ERROR_MESSAGE = 'Algo falló. Probá de nuevo en un rato.';
-const UNVERIFIED_MESSAGE = 'Esperá un segundo a que terminemos de verificar y probá de nuevo.';
-const INVALID_MESSAGE = 'Poné un email válido para sumarte.';
+const ERROR_MESSAGES: Partial<Record<SubmissionStatus, string>> = {
+  error: 'Algo falló. Probá de nuevo en un rato.',
+  unverified: 'Esperá un segundo a que terminemos de verificar y probá de nuevo.',
+  invalid: 'Poné un email válido para sumarte.',
+};
 
 export default function WaitlistForm({
   variant,
@@ -42,6 +44,8 @@ export default function WaitlistForm({
   const turnstileRef = useRef<TurnstileHandle | null>(null);
   const isInline = orientation === 'inline';
   const isDark = tone === 'dark';
+  const errorMessage = ERROR_MESSAGES[status] ?? '';
+  const errorId = `waitlist-error-${variant}`;
 
   const resetChallenge = () => {
     setTurnstileToken('');
@@ -79,7 +83,7 @@ export default function WaitlistForm({
 
   if (status === 'success') {
     return (
-      <div className="flex flex-col gap-2 rounded-lg border-2 border-accent bg-accent/10 p-6">
+      <div role="status" className="flex flex-col gap-2 rounded-lg border-2 border-accent bg-accent/10 p-6">
         <span className="font-display text-xl uppercase">¡Adentro!</span>
         <span className="text-muted-foreground">{COPY[variant].success}</span>
       </div>
@@ -89,7 +93,7 @@ export default function WaitlistForm({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
       <div className={cn('flex flex-col gap-2', isInline && 'sm:flex-row sm:items-start sm:gap-3')}>
-        <div className="flex flex-1 flex-col gap-2">
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
           <Label htmlFor={`waitlist-${variant}`} className="sr-only">
             Tu email
           </Label>
@@ -105,20 +109,19 @@ export default function WaitlistForm({
               if (status !== 'idle' && status !== 'submitting') setStatus('idle');
             }}
             aria-invalid={status === 'invalid' || status === 'error'}
+            aria-describedby={errorId}
             className={cn(
               'h-14',
-              isDark && 'border-foreground/25 bg-white/5 text-foreground placeholder:text-foreground/50',
+              isDark && 'border-foreground/50 bg-white/5 text-foreground placeholder:text-foreground/60',
             )}
           />
-          {status === 'invalid' && (
-            <span className="text-sm font-medium text-destructive">{INVALID_MESSAGE}</span>
-          )}
-          {status === 'unverified' && (
-            <span className="text-sm font-medium text-destructive">{UNVERIFIED_MESSAGE}</span>
-          )}
-          {status === 'error' && (
-            <span className="text-sm font-medium text-destructive">{ERROR_MESSAGE}</span>
-          )}
+          <span
+            id={errorId}
+            role="alert"
+            className="text-sm font-medium text-destructive empty:hidden"
+          >
+            {errorMessage}
+          </span>
         </div>
         <Button
           type="submit"

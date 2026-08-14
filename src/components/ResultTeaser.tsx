@@ -1,4 +1,8 @@
-import type { Garment } from '@/data/garments';
+import {
+  buildGarmentImageFallback,
+  buildGarmentImageSrcSet,
+  type Garment,
+} from '@/data/garments';
 import WaitlistForm from '@/components/WaitlistForm';
 
 interface ResultTeaserProps {
@@ -8,9 +12,11 @@ interface ResultTeaserProps {
 export default function ResultTeaser({ garment }: ResultTeaserProps) {
   return (
     <div className="animate-rise-in grid gap-[var(--space-stack)] md:grid-cols-2 md:items-center">
-      <div className="bzk-oval-frame">
+      <div className="bzk-oval-frame min-w-0">
         <img
-          src={garment.image}
+          src={buildGarmentImageFallback(garment.photoId)}
+          srcSet={buildGarmentImageSrcSet(garment.photoId)}
+          sizes="(min-width: 768px) 45vw, 90vw"
           alt={`Boceto de ${garment.name}`}
           loading="lazy"
           decoding="async"
@@ -19,7 +25,7 @@ export default function ResultTeaser({ garment }: ResultTeaserProps) {
         />
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex min-w-0 flex-col gap-5">
         <span className="text-eyebrow text-white/70">Te entendimos. Tu prenda es</span>
         <h3 className="text-section-title text-white">{garment.name}</h3>
         <p className="text-lg text-white/85">{garment.teaserCopy}</p>

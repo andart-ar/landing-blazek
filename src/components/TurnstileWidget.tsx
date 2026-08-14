@@ -89,5 +89,9 @@ export default function TurnstileWidget({ onVerify, onExpire, handleRef }: Turns
     };
   }, [handleRef]);
 
-  return <div ref={containerRef} />;
+  return (
+    <div className="bzk-turnstile">
+      <div ref={containerRef} />
+    </div>
+  );
 }
