@@ -1,8 +1,10 @@
 import type { WaitlistVariant } from '@/lib/waitlist';
+import type { ResolvedGarmentImage } from '@/lib/garmentImages';
 
 interface WaitlistEmailOptions {
   siteUrl: string;
   garmentName?: string;
+  garmentImage?: ResolvedGarmentImage;
 }
 
 interface WaitlistEmailContent {
@@ -64,11 +66,25 @@ function buildPlainText(
 
 export function buildWaitlistWelcomeEmail(
   variant: WaitlistVariant,
-  { siteUrl, garmentName }: WaitlistEmailOptions,
+  { siteUrl, garmentName, garmentImage }: WaitlistEmailOptions,
 ): WaitlistEmailContent {
   const copy = VARIANT_COPY[variant];
   const body = resolveBody(variant, garmentName);
   const logoUrl = `${siteUrl}/email/blazek-logo.png`;
+  const garmentImageBlock = garmentImage
+    ? `
+            <tr>
+              <td align="center" style="padding:24px 40px 0;">
+                <img
+                  src="${siteUrl}${garmentImage.src}"
+                  width="${garmentImage.width}"
+                  height="${garmentImage.height}"
+                  alt="${garmentName ?? 'Tu prenda BLAZEK'}"
+                  style="display:block;width:100%;max-width:220px;height:auto;border-radius:16px;border:1px solid ${BRAND_BORDER};"
+                />
+              </td>
+            </tr>`
+    : '';
 
   return {
     subject: `BLAZEK — ${copy.heading}`,
@@ -124,7 +140,7 @@ export function buildWaitlistWelcomeEmail(
                 </h1>
               </td>
             </tr>
-
+${garmentImageBlock}
             <tr>
               <td style="padding:16px 40px 32px;" align="center">
                 <p style="margin:0;font-size:16px;line-height:1.6;color:${BRAND_INK_SOFT};text-align:center;">

@@ -2,8 +2,9 @@ import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 import { RESEND_API_KEY, RESEND_AUDIENCE_ID, RESEND_FROM_EMAIL } from 'astro:env/server';
 import { PUBLIC_SITE_URL } from 'astro:env/client';
-import { GARMENTS } from '@/data/garments';
+import { GARMENTS, type Garment } from '@/data/garments';
 import { buildWaitlistWelcomeEmail } from '@/emails/waitlistWelcome';
+import { resolveGarmentImage, GARMENT_EMAIL_IMAGE_WIDTH, type ResolvedGarmentImage } from '@/lib/garmentImages';
 import { getClientId, getClientIp, isRateLimited } from '@/lib/rateLimit';
 import { verifyTurnstileToken } from '@/lib/turnstile';
 import { isValidWaitlistEmail, type WaitlistPayload, type WaitlistVariant } from '@/lib/waitlist';
@@ -28,9 +29,16 @@ function isSameOrigin(request: Request): boolean {
   return request.headers.get('origin') === PUBLIC_SITE_URL;
 }
 
-function findGarmentName(garmentId: unknown): string | undefined {
+function findGarment(garmentId: unknown): Garment | undefined {
   if (typeof garmentId !== 'string') return undefined;
-  return GARMENTS.find((garment) => garment.id === garmentId)?.name;
+  return GARMENTS.find((garment) => garment.id === garmentId);
+}
+
+async function resolveGarmentEmailImage(
+  garment: Garment | undefined,
+): Promise<ResolvedGarmentImage | undefined> {
+  if (!garment?.image) return undefined;
+  return resolveGarmentImage(garment.image, GARMENT_EMAIL_IMAGE_WIDTH);
 }
 
 async function readPayload(request: Request): Promise<PayloadResult> {
@@ -63,6 +71,7 @@ async function saveContactAndSendWelcome(
   email: string,
   variant: WaitlistVariant,
   garmentName?: string,
+  garmentImage?: ResolvedGarmentImage,
 ) {
   const resend = new Resend(RESEND_API_KEY);
 
@@ -77,7 +86,11 @@ async function saveContactAndSendWelcome(
     return jsonResponse({ ok: false, message: 'No pudimos guardar tu email.' }, 500);
   }
 
-  const content = buildWaitlistWelcomeEmail(variant, { siteUrl: PUBLIC_SITE_URL, garmentName });
+  const content = buildWaitlistWelcomeEmail(variant, {
+    siteUrl: PUBLIC_SITE_URL,
+    garmentName,
+    garmentImage,
+  });
   const sendResult = await resend.emails.send({
     from: RESEND_FROM_EMAIL,
     to: email,
@@ -123,5 +136,11 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonResponse({ ok: false, message: 'No pudimos verificar que seas humano.' }, 403);
   }
 
-  return saveContactAndSendWelcome(email, variant, findGarmentName(garmentId));
+  const garment = findGarment(garmentId);
+  return saveContactAndSendWelcome(
+    email,
+    variant,
+    garment?.name,
+    await resolveGarmentEmailImage(garment),
+  );
 };
