@@ -8,6 +8,9 @@ import UniqueSection from '@/components/UniqueSection.astro';
 import WaitlistSection from '@/components/WaitlistSection.astro';
 import FaqSection from '@/components/FaqSection.astro';
 import SiteFooter from '@/components/SiteFooter.astro';
+import { buildGarmentImageMap } from '@/lib/garmentImages';
+
+const garmentImages = await buildGarmentImageMap();
 ---
 
 <BaseLayout>
@@ -15,7 +18,7 @@ import SiteFooter from '@/components/SiteFooter.astro';
   <main id="contenido" tabindex="-1">
     <HeroSection />
     <HowItWorksSection />
-    <QuizSection />
+    <QuizSection garmentImages={garmentImages} />
     <WaitlistSection />
     <UniqueSection />
     <FaqSection />

@@ -1,12 +1,20 @@
 ---
 import Quiz from '@/components/Quiz.tsx';
 import LogoField from '@/components/LogoField.astro';
-import { buildGarmentImageMap } from '@/lib/garmentImages';
 
-const garmentImages = await buildGarmentImageMap();
+interface Props {
+  garmentImages: Record<string, string>;
+}
+
+const { garmentImages } = Astro.props;
+const garmentImageUrls = Object.values(garmentImages);
 ---
 
-<section id="quiz" class="clip-x section-warm section relative">
+<section
+  id="quiz"
+  class="clip-x section-warm section relative"
+  data-garment-image-urls={JSON.stringify(garmentImageUrls)}
+>
   <LogoField tone="light" />
 
   <div class="container-blazek relative z-10 flex flex-col gap-[var(--space-stack)]">
@@ -31,3 +39,23 @@ const garmentImages = await buildGarmentImageMap();
     </div>
   </div>
 </section>
+
+<script>
+  function warmGarmentImageCache() {
+    const section = document.getElementById('quiz');
+    const rawUrls = section?.dataset.garmentImageUrls;
+    if (!rawUrls) return;
+
+    const urls: string[] = JSON.parse(rawUrls);
+    for (const url of urls) {
+      const image = new Image();
+      image.src = url;
+    }
+  }
+
+  if (document.readyState === 'complete') {
+    warmGarmentImageCache();
+  } else {
+    window.addEventListener('load', warmGarmentImageCache, { once: true });
+  }
+</script>
