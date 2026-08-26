@@ -15,7 +15,7 @@ interface WaitlistEmailContent {
 
 const BRAND_RED = '#bc1616';
 const BRAND_NAVY = '#182848';
-const BRAND_CREAM = '#faf3e4';
+const BRAND_BACKGROUND = '#0e2d44';
 const BRAND_INK = '#141d33';
 const BRAND_INK_SOFT = '#4d5a78';
 const BRAND_BORDER = '#e7dbc4';
@@ -30,7 +30,7 @@ const VARIANT_COPY: Record<
     badge: 'Estás en la lista',
     heading: 'Bienvenido al cambio',
     body: 'Te sumaste a la waitlist de BLAZEK. En cuanto abramos las puertas, sos de los primeros en enterarte.',
-    cta: 'Ver la comunidad',
+    cta: 'Volver a BLAZEK',
   },
   result: {
     badge: 'Prenda reservada',
@@ -97,8 +97,8 @@ export function buildWaitlistWelcomeEmail(
     <meta name="color-scheme" content="light" />
     <title>${copy.heading}</title>
   </head>
-  <body style="margin:0;padding:0;background-color:${BRAND_CREAM};font-family:${EMAIL_FONT_STACK};color:${BRAND_INK};">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:${BRAND_CREAM};padding:40px 16px;">
+  <body style="margin:0;padding:0;background-color:${BRAND_BACKGROUND};font-family:${EMAIL_FONT_STACK};color:${BRAND_INK};">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:${BRAND_BACKGROUND};padding:40px 16px;">
       <tr>
         <td align="center">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background-color:#ffffff;border:1px solid ${BRAND_BORDER};border-radius:20px;overflow:hidden;">
