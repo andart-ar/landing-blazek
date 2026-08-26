@@ -1,7 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import chairImage from '@/assets/images/background-image.png';
-
 const notesLeft = [
   { tilt: 'sm:-rotate-3', label: '100% algodón', body: 'Prendas premium que se sienten distinto.' },
   { tilt: 'sm:rotate-2', label: 'Hecho en BA', body: 'Diseñado y producido en Buenos Aires.' },
@@ -21,8 +18,8 @@ const notesRight = [
       Cosas que nos hacen <span class="text-primary">únicos</span>
     </h2>
 
-    <div class="grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr]">
-      <div class="order-2 flex min-w-0 flex-col gap-8 lg:order-1">
+    <div class="grid items-center gap-8 lg:grid-cols-2">
+      <div class="flex min-w-0 flex-col gap-8">
         {notesLeft.map((note) => (
           <article class={`bzk-note bzk-note--white ${note.tilt} w-full lg:w-auto lg:self-start`}>
             <span class="bzk-note__label">{note.label}</span>
@@ -31,18 +28,7 @@ const notesRight = [
         ))}
       </div>
 
-      <div class="order-1 mx-auto w-full max-w-[22rem] lg:order-2">
-        <Image
-          src={chairImage}
-          alt="Miembro de la comunidad BLAZEK"
-          loading="lazy"
-          decoding="async"
-          widths={[320, 520, 700]}
-          sizes="(min-width: 1024px) 22rem, 80vw"
-        />
-      </div>
-
-      <div class="order-3 flex min-w-0 flex-col gap-8">
+      <div class="flex min-w-0 flex-col gap-8">
         {notesRight.map((note) => (
           <article class={`bzk-note bzk-note--white ${note.tilt} w-full lg:w-auto lg:self-end`}>
             <span class="bzk-note__label">{note.label}</span>

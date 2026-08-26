@@ -2,12 +2,6 @@
 import { Image } from 'astro:assets';
 import LogoField from '@/components/LogoField.astro';
 import heroImage from '@/assets/images/backdround-image-2.png';
-
-const avatars = [
-  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&q=80&auto=format&fit=crop&crop=faces',
-  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&q=80&auto=format&fit=crop&crop=faces',
-  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&q=80&auto=format&fit=crop&crop=faces',
-];
 ---
 
 <section id="inicio" class="clip-x section relative">
@@ -30,17 +24,6 @@ const avatars = [
           Explorá tu prenda
           <span aria-hidden="true">&rarr;</span>
         </a>
-      </div>
-
-      <div class="flex items-center gap-3 pt-2">
-        <span class="bzk-avatars">
-          {avatars.map((src) => (
-            <img src={src} alt="" loading="lazy" decoding="async" width="40" height="40" />
-          ))}
-        </span>
-        <p class="max-w-[16rem] text-sm text-foreground/75">
-          <strong class="text-foreground">+1200 personas</strong> ya se sumaron a la comunidad oficial.
-        </p>
       </div>
     </div>
 

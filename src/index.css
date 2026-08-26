@@ -558,25 +558,6 @@
         height: auto;
     }
 
-    .bzk-avatars {
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .bzk-avatars img,
-    .bzk-avatars span {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 999px;
-        border: 2px solid hsl(var(--background));
-        object-fit: cover;
-        margin-inline-start: -0.7rem;
-    }
-
-    .bzk-avatars :first-child {
-        margin-inline-start: 0;
-    }
-
     .bzk-step__index {
         display: grid;
         place-items: center;
