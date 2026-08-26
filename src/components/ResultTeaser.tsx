@@ -1,28 +1,34 @@
-import {
-  buildGarmentImageFallback,
-  buildGarmentImageSrcSet,
-  type Garment,
-} from '@/data/garments';
+import { Shirt } from 'lucide-react';
+import type { Garment } from '@/data/garments';
 import WaitlistForm from '@/components/WaitlistForm';
 
 interface ResultTeaserProps {
   garment: Garment;
+  imageUrl: string | null;
 }
 
-export default function ResultTeaser({ garment }: ResultTeaserProps) {
+export default function ResultTeaser({ garment, imageUrl }: ResultTeaserProps) {
   return (
     <div className="animate-rise-in grid gap-[var(--space-stack)] md:grid-cols-2 md:items-center">
       <div className="bzk-oval-frame min-w-0">
-        <img
-          src={buildGarmentImageFallback(garment.photoId)}
-          srcSet={buildGarmentImageSrcSet(garment.photoId)}
-          sizes="(min-width: 768px) 45vw, 90vw"
-          alt={`Boceto de ${garment.name}`}
-          loading="lazy"
-          decoding="async"
-          width="600"
-          height="432"
-        />
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={`Boceto de ${garment.name}`}
+            loading="lazy"
+            decoding="async"
+            width="600"
+            height="432"
+          />
+        ) : (
+          <div
+            className="flex h-full w-full items-center justify-center bg-secondary/10"
+            role="img"
+            aria-label={`${garment.name}, imagen no disponible`}
+          >
+            <Shirt className="h-12 w-12 text-secondary/40" strokeWidth={1.5} />
+          </div>
+        )}
       </div>
 
       <div className="flex min-w-0 flex-col gap-5">

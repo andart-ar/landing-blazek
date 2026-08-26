@@ -1,6 +1,9 @@
 ---
 import Quiz from '@/components/Quiz.tsx';
 import LogoField from '@/components/LogoField.astro';
+import { buildGarmentImageMap } from '@/lib/garmentImages';
+
+const garmentImages = await buildGarmentImageMap();
 ---
 
 <section id="quiz" class="clip-x section-warm section relative">
@@ -15,7 +18,7 @@ import LogoField from '@/components/LogoField.astro';
     </div>
 
     <div class="grid gap-[var(--space-stack)] lg:grid-cols-[1fr_auto] lg:items-start">
-      <Quiz client:visible />
+      <Quiz client:visible garmentImages={garmentImages} />
 
       <aside class="bzk-trait-hint mx-auto max-w-[14rem] text-white lg:mx-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

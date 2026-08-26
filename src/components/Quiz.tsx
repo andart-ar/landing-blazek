@@ -19,7 +19,11 @@ const TRAIT_ICON: Record<Trait, ComponentType<{ className?: string }>> = {
   Tranquilo: Leaf,
 };
 
-export default function Quiz() {
+interface QuizProps {
+  garmentImages: Record<string, string>;
+}
+
+export default function Quiz({ garmentImages }: QuizProps) {
   const [selected, setSelected] = useState<Trait[]>([]);
   const [result, setResult] = useState<MatchResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -92,7 +96,10 @@ export default function Quiz() {
       )}
 
       {!isLoading && result && (
-        <ResultTeaser garment={result.garment} />
+        <ResultTeaser
+          garment={result.garment}
+          imageUrl={garmentImages[result.garment.id] ?? null}
+        />
       )}
     </div>
   );

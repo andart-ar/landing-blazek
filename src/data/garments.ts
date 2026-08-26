@@ -1,29 +1,17 @@
+import type { ImageMetadata } from 'astro';
 import type { TraitVector } from './traits';
+import camperaRib from '@/assets/clothing/campera_rib.jpg';
+import remeraSenda from '@/assets/clothing/remera_senda.jpg';
+import remeraClassicSenda from '@/assets/clothing/remera_classic_senda.jpg';
+import remeraClassic from '@/assets/clothing/remera_classic.jpg';
+import hoodieOllie from '@/assets/clothing/hoodie_ollie.jpg';
 
 export interface Garment {
   id: string;
   name: string;
   vector: TraitVector;
   teaserCopy: string;
-  photoId: string;
-}
-
-const UNSPLASH_PHOTO = 'https://images.unsplash.com/photo-';
-const GARMENT_IMAGE_WIDTHS = [400, 600, 900];
-const GARMENT_IMAGE_FALLBACK_WIDTH = 600;
-
-export function buildGarmentImageSource(photoId: string, width: number): string {
-  return `${UNSPLASH_PHOTO}${photoId}?w=${width}&q=80&auto=format&fit=crop`;
-}
-
-export function buildGarmentImageFallback(photoId: string): string {
-  return buildGarmentImageSource(photoId, GARMENT_IMAGE_FALLBACK_WIDTH);
-}
-
-export function buildGarmentImageSrcSet(photoId: string): string {
-  return GARMENT_IMAGE_WIDTHS.map(
-    (width) => `${buildGarmentImageSource(photoId, width)} ${width}w`,
-  ).join(', ');
+  image: ImageMetadata | null;
 }
 
 export const GARMENTS: Garment[] = [
@@ -33,23 +21,15 @@ export const GARMENTS: Garment[] = [
     vector: [3, 1, 3, 3, 0, 1, 0],
     teaserCopy:
       'Te movés rápido, conectás con todos y no te quedás quieto. La Rollin es para los que llegan y prenden el ambiente.',
-    photoId: '1503341733017-1901578f9f1e',
+    image: null,
   },
   {
     id: 'classic-bzk-blanca',
-    name: 'Remera Classic BZK Blanca',
+    name: 'Remera Classic',
     vector: [1, 2, 1, 1, 3, 2, 3],
     teaserCopy:
-      'Sobria, limpia, sin gritar. La Classic BZK Blanca es para los que dicen mucho diciendo poco.',
-    photoId: '1523585298601-d46ae038d7d3',
-  },
-  {
-    id: 'classic-bzk-negra',
-    name: 'Remera Classic BZK Negra',
-    vector: [1, 3, 1, 0, 3, 3, 2],
-    teaserCopy:
-      'Foco, detalle y carácter. La Classic BZK Negra acompaña a los que van a lo suyo sin distracciones.',
-    photoId: '1503341504253-dff4815485f1',
+      'Sobria, limpia, sin gritar. La Classic es para los que dicen mucho diciendo poco.',
+    image: remeraClassic,
   },
   {
     id: 'remera-senda',
@@ -57,7 +37,7 @@ export const GARMENTS: Garment[] = [
     vector: [2, 2, 3, 2, 0, 3, 0],
     teaserCopy:
       'Equilibrio entre la calle y la idea. La Senda es para los que crean en movimiento y arrastran a la banda.',
-    photoId: '1503341338985-c0477be52513',
+    image: remeraSenda,
   },
   {
     id: 'classic-senda',
@@ -65,15 +45,7 @@ export const GARMENTS: Garment[] = [
     vector: [2, 1, 2, 2, 1, 3, 1],
     teaserCopy:
       'Versátil, prolija, siempre a mano. La Classic Senda es la prenda que combina con todo lo que sos.',
-    photoId: '1593726891090-b4c6bc09c819',
-  },
-  {
-    id: 'camisa-bz',
-    name: 'Camisa BZ',
-    vector: [3, 3, 1, 1, 2, 3, 2],
-    teaserCopy:
-      'Ambición con criterio. La Camisa BZ es para los que arman su mundo con detalle y no se conforman.',
-    photoId: '1624124959348-86710fef6630',
+    image: remeraClassicSenda,
   },
   {
     id: 'campera-rib',
@@ -81,7 +53,7 @@ export const GARMENTS: Garment[] = [
     vector: [1, 2, 0, 1, 3, 2, 3],
     teaserCopy:
       'Tu refugio para todas las estaciones. La Campera Rib es para los que valoran su espacio y su ritmo.',
-    photoId: '1654169368969-c0836b5fb377',
+    image: camperaRib,
   },
   {
     id: 'hoodie-ollie',
@@ -89,14 +61,6 @@ export const GARMENTS: Garment[] = [
     vector: [2, 1, 1, 2, 1, 1, 2],
     teaserCopy:
       'Comodidad sin perder actitud. La Hoodie Ollie es para los que fluyen y se la bancan en cualquier plan.',
-    photoId: '1630590613173-b01fdb40a1eb',
-  },
-  {
-    id: 'boxers-bzk',
-    name: 'Boxers BZK',
-    vector: [1, 3, 3, 1, 0, 3, 1],
-    teaserCopy:
-      'El detalle que solo vos sabés. Los Boxers BZK son para los que cuidan hasta lo que no se ve.',
-    photoId: '1589902860314-e910697dea18',
+    image: hoodieOllie,
   },
 ];
