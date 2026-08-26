@@ -4,7 +4,7 @@ const TURNSTILE_ORIGIN = 'https://challenges.cloudflare.com';
 
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
-  `script-src 'self' ${TURNSTILE_ORIGIN}`,
+  `script-src 'self' 'unsafe-inline' ${TURNSTILE_ORIGIN}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https://images.unsplash.com",
