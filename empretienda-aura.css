@@ -600,11 +600,6 @@ a {
     background: var(--bzk-cream) !important;
 }
 
-.autocomplete-suggestion__image-box {
-    border-radius: 8px;
-    overflow: hidden;
-}
-
 .field__textarea {
     padding: 0.7rem 1rem;
     min-height: 7rem;
@@ -688,7 +683,13 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .uk-offcanvas-bar .text--primary,
 .uk-offcanvas-bar a,
+.uk-offcanvas-bar a:hover,
+.uk-offcanvas-bar a:focus,
+.uk-offcanvas-bar a:active,
 .mobile-menu-sidenav__item-link,
+.mobile-menu-sidenav__item-link:hover,
+.mobile-menu-sidenav__item-link:focus,
+.mobile-menu-sidenav__item-link:active,
 .cart-sidenav__title,
 .cart-sidenav__msg,
 .cart-sidenav__info-text,
@@ -797,8 +798,9 @@ input[type="number"]::-webkit-inner-spin-button {
     padding: 3px;
 }
 
-.footer__bottom__copyright-text {
-    color: var(--bzk-cream-faint) !important;
+.footer__bottom__copyright-text,
+.footer__bottom__copyright-text.text--primary {
+    color: #fff !important;
     font-size: 0.68rem;
     text-transform: none;
 }
@@ -806,11 +808,9 @@ input[type="number"]::-webkit-inner-spin-button {
 .footer__bottom__copyright-empretienda-logo {
     width: 84px;
     height: auto;
-    opacity: 0.38;
+    opacity: 1;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    * {
-        transition-duration: 0.01ms !important;
-    }
+.footer__bottom__copyright-empretienda-logo * {
+    fill: #fff !important;
 }
