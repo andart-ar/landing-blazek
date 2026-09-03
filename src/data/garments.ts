@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import type { TraitVector } from './traits';
 import camperaRib from '@/assets/clothing/campera_rib.jpg';
+import remeraRollin from '@/assets/clothing/remera_rollin.png';
 import remeraSenda from '@/assets/clothing/remera_senda.jpg';
 import remeraClassicSenda from '@/assets/clothing/remera_classic_senda.jpg';
 import remeraClassic from '@/assets/clothing/remera_classic.jpg';
@@ -21,7 +22,7 @@ export const GARMENTS: Garment[] = [
     vector: [3, 1, 3, 3, 0, 1, 0],
     teaserCopy:
       'Te movés rápido, conectás con todos y no te quedás quieto. La Rollin es para los que llegan y prenden el ambiente.',
-    image: null,
+    image: remeraRollin,
   },
   {
     id: 'classic-bzk-blanca',

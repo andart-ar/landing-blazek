@@ -112,7 +112,8 @@ h1, h2, h3, h4, h5, h6,
 .field__label,
 .checkout__label-text,
 .block-products-feed__product-name,
-.products-feed__product-name {
+.products-feed__product-name,
+.product-vip__shipment-cost-title {
     text-transform: uppercase;
     letter-spacing: 0.14em;
     font-weight: var(--bzk-w-eyebrow);
@@ -469,12 +470,14 @@ a {
     max-width: 1080px;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 0;
 }
 
 .product-vip__left-container,
 .product-vip__right-container {
     width: auto !important;
     min-width: 0;
+    padding-left: 0 !important;
     float: none !important;
 }
 
@@ -539,6 +542,29 @@ a {
 .product-vip__description p {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
+}
+
+/* ---- product page: shipping cost calculator (stacked, full-width button) ---- */
+
+.product-vip__shipment-cost-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--bzk-hairline);
+    font-size: 0.72rem;
+    color: var(--bzk-ink-muted) !important;
+}
+
+#shipment_cost-form .uk-grid {
+    row-gap: 1rem;
+}
+
+#shipment_cost-form .uk-width-3-5,
+#shipment_cost-form .uk-width-2-5,
+#shipment_cost-btn {
+    width: 100% !important;
 }
 
 /* ---- forms (match the landing: 2px border, rounded, chunky) ---- */
