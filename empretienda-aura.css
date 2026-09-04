@@ -890,6 +890,22 @@ input[type="number"]::-webkit-inner-spin-button {
     letter-spacing: 0.01em;
 }
 
+/* shipping zip search: detach the submit button and shrink it */
+
+.checkout .uk-button-input {
+    width: auto !important;
+    min-height: 0 !important;
+    height: 3rem !important;
+    margin-left: 0.65rem !important;
+    padding: 0 1.15rem !important;
+    font-size: 0.72rem;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    align-self: center !important;
+    border-radius: var(--bzk-radius-input) !important;
+}
+
 /* order summary: navy panel, mirrors the cart drawer */
 
 .checkout__detail-container {
